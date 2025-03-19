@@ -1,0 +1,23 @@
+{
+  "name": "jimbo-mono",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20250319.0",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "sst": "3.9.44"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "sst dev",
+    "typecheck": "bun --filter=* typecheck"
+  }
+}
