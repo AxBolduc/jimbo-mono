@@ -1,0 +1,14 @@
+{
+  "name": "@jimbostats/core",
+  "type": "module",
+  "exports": {
+    "./*": "./*.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
+
