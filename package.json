@@ -8,10 +8,10 @@
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.8.2"
   },
   "dependencies": {
-    "sst": "3.9.44"
+    "sst": "^3.17.10"
   },
   "workspaces": [
     "packages/*"

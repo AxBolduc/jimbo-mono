@@ -5,13 +5,14 @@
     "deploy": "wrangler deploy --minify"
   },
   "dependencies": {
-    "@hono/zod-validator": "^0.4.3",
-    "hono": "^4.7.4",
-    "zod": "3.24.1"
+    "@hono/effect-validator": "^1.2.0",
+    "@jimbostats/core": "workspace:*",
+    "effect": "^3.16.16",
+    "hono": "^4.8.5",
+    "hono-openapi": "^0.4.8"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250214.0",
-    "wrangler": "^3.109.2"
+    "@cloudflare/workers-types": "^4.20250719.0",
+    "wrangler": "^3.114.11"
   }
 }
-
