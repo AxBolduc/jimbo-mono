@@ -1,2 +1,2 @@
-export * from "./run.repository";
-export * from "./user.repository";
+export * from "./runRepository/";
+export * from "./userRepository/";

@@ -1,9 +1,9 @@
-import { drizzle } from "drizzle-orm/postgres-js/driver";
-import { Client } from "pg";
+import * as DrizzleSqlite from "@effect/sql-drizzle/Sqlite";
+import { ConfigError, Layer } from "effect";
+import * as Client from "@effect/sql/SqlClient";
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL ?? "",
-});
+export const DrizzleFactory = (
+  db: Layer.Layer<Client.SqlClient, ConfigError.ConfigError>,
+) => DrizzleSqlite.layer.pipe(Layer.provide(db));
 
-export const db = drizzle(client);
 export * from "./schema";

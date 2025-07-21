@@ -13,6 +13,7 @@ import * as cloudflare from "@cloudflare/workers-types";
 declare module "sst" {
   export interface Resource {
     "HonoEffect": cloudflare.Service
+    "JimboDb": cloudflare.D1Database
   }
 }
 

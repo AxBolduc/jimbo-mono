@@ -1,44 +1,41 @@
+import { sql } from "drizzle-orm";
 import {
-  bigint,
-  boolean,
   integer,
-  pgTable,
   primaryKey,
-  serial,
+  sqliteTable,
   text,
-  timestamp,
   unique,
-} from "drizzle-orm/pg-core";
+} from "drizzle-orm/sqlite-core";
 
-export const Blinds = pgTable("Blinds", {
+export const Blinds = sqliteTable("Blinds", {
   // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-  id: serial("id").primaryKey().notNull(),
+  id: text("id").primaryKey().notNull(),
   name: text("name").notNull(),
 });
 
-export const Hands = pgTable("Hands", {
+export const Hands = sqliteTable("Hands", {
   // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-  id: serial("id").primaryKey().notNull(),
+  id: text("id").primaryKey().notNull(),
   name: text("name").default("").notNull(),
   value: integer("value").notNull(),
 });
 
-export const Jokers = pgTable(
+export const Jokers = sqliteTable(
   "Jokers",
   {
     // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-    id: serial("id").primaryKey().notNull(),
+    id: text("id").primaryKey().notNull(),
     name: text("name").notNull(),
   },
   (table) => [unique("Jokers_id_key").on(table.id)],
 );
 
-export const Runs = pgTable("Runs", {
+export const Runs = sqliteTable("Runs", {
   // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-  id: serial("id").primaryKey().notNull(),
-  createdAt: timestamp("createdAt", { withTimezone: true, mode: "date" })
-    .defaultNow()
-    .notNull(),
+  id: text("id").primaryKey().notNull(),
+  createdAt: text("createdAt").default(
+    sql`strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`,
+  ),
   bestHand: text("bestHand").default("0").notNull(),
   cardsPlayed: integer("cardsPlayed").notNull(),
   cardsDiscarded: integer("cardsDiscarded").notNull(),
@@ -48,26 +45,23 @@ export const Runs = pgTable("Runs", {
   seed: text("seed").default("").notNull(),
   ante: integer("ante").notNull(),
   round: integer("round").notNull(),
-  won: boolean("won").default(true).notNull(),
-  // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-  lostTo: bigint("lostTo", { mode: "number" }).references(() => Blinds.id),
-  // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-  mostPlayedHand: bigint("mostPlayedHand", { mode: "number" })
+  won: integer("won").default(1).notNull(),
+  lostTo: text("lostTo").references(() => Blinds.id),
+  mostPlayedHand: text("mostPlayedHand")
     .notNull()
     .references(() => Hands.id),
-  // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-  userId: bigint("userId", { mode: "number" })
+  userId: text("userId")
     .notNull()
     .references(() => Users.id),
 });
 
-export const Users = pgTable(
+export const Users = sqliteTable(
   "Users",
   {
     // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-    id: serial("id").primaryKey().notNull(),
-    createdAt: timestamp("createdAt", { withTimezone: true, mode: "date" })
-      .defaultNow()
+    id: text("id").primaryKey().notNull(),
+    createdAt: text("createdAt")
+      .default(sql`strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`)
       .notNull(),
     username: text("username").notNull(),
     password: text("password").notNull(),
@@ -76,15 +70,14 @@ export const Users = pgTable(
   (table) => [unique("Users_username_key").on(table.username)],
 );
 
-export const RunJokers = pgTable(
+export const RunJokers = sqliteTable(
   "RunJokers",
   {
     // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-    runId: bigint("runId", { mode: "number" })
+    runId: text("runId")
       .notNull()
       .references(() => Runs.id),
-    // You can use { mode: "bigint" } if numbers are exceeding js number limitations
-    jokerId: bigint("jokerId", { mode: "number" })
+    jokerId: text("jokerId")
       .notNull()
       .references(() => Jokers.id),
   },

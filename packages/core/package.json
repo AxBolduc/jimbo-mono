@@ -17,9 +17,12 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@effect/sql-d1": "^0.40.0",
+    "@effect/sql-drizzle": "^0.41.0",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.40.1",
+    "effect": "^3.16.16",
     "pg": "^8.14.1",
-    "effect": "^3.16.16"
+    "sst": "*"
   }
 }

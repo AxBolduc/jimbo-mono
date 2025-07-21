@@ -14,12 +14,14 @@ export const RunSchema = Schema.Struct({
   ante: Schema.Int,
   round: Schema.Int,
   won: Schema.Boolean,
-  lostTo: Schema.NullOr(Schema.String),
+  lostTo: Schema.String.pipe(Schema.NullOr, Schema.optional),
 });
 
 export const CreateRunSchema = Schema.Struct({
-  ...RunSchema.omit("id", "createdAt").fields,
+  ...RunSchema.omit("id", "createdAt", "mostPlayedHand", "lostTo").fields,
   userId: Schema.Int,
+  mostPlayedHand: Schema.Int,
+  lostTo: Schema.optional(Schema.Int),
 });
 
 export const UpdateRunSchema = Schema.partial(CreateRunSchema);

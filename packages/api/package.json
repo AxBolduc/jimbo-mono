@@ -5,6 +5,7 @@
     "deploy": "wrangler deploy --minify"
   },
   "dependencies": {
+    "@effect/sql-d1": "^0.40.0",
     "@hono/effect-validator": "^1.2.0",
     "@jimbostats/core": "workspace:*",
     "effect": "^3.16.16",

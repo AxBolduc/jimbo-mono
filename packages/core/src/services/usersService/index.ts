@@ -1,13 +1,14 @@
 import { Context, Effect } from "effect";
 import type { Run } from "../../schemas";
-import type { UserNotFoundError } from "./errors";
+import type { DatabaseError } from "../../errors/db.error";
+import type { NoRunsFoundError } from "../../errors/noRunsFound.error";
 
 export class UsersService extends Context.Tag("UsersService")<
   UsersService,
   {
     readonly getRunsForUser: (
       userId: number,
-    ) => Effect.Effect<Run[], UserNotFoundError>;
+    ) => Effect.Effect<Run[], DatabaseError | NoRunsFoundError>;
   }
 >() { }
 
