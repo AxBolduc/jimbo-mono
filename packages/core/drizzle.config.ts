@@ -4,9 +4,12 @@ export default defineConfig({
   strict: true,
   verbose: true,
   out: "./migrations",
-  dialect: "postgresql",
+  dialect: "sqlite",
+  driver: "d1-http",
   dbCredentials: {
-    url: process.env.DATABASE_URL ?? "",
+    accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
+    token: process.env.CLOUDFLARE_API_TOKEN!,
+    databaseId: "da25f6ea-5437-4ef8-bc3d-690e794c07b5",
   },
-  schema: "./src/db/schema.ts",
+  schema: "./packages/core/src/db/schema.ts",
 });

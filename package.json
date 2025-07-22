@@ -18,6 +18,7 @@
   ],
   "scripts": {
     "dev": "sst dev",
-    "typecheck": "bun --filter=* typecheck"
+    "typecheck": "bun --filter=* typecheck",
+    "migrate:gen": "drizzle-kit generate --config ./packages/core/drizzle.config.ts"
   }
 }

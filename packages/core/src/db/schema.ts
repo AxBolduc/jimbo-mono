@@ -33,9 +33,9 @@ export const Jokers = sqliteTable(
 export const Runs = sqliteTable("Runs", {
   // You can use { mode: "bigint" } if numbers are exceeding js number limitations
   id: text("id").primaryKey().notNull(),
-  createdAt: text("createdAt").default(
-    sql`strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`,
-  ),
+  createdAt: text("createdAt")
+    .default(sql`strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`)
+    .notNull(),
   bestHand: text("bestHand").default("0").notNull(),
   cardsPlayed: integer("cardsPlayed").notNull(),
   cardsDiscarded: integer("cardsDiscarded").notNull(),

@@ -1,23 +1,21 @@
-import { RunRepositoryLive } from "@jimbostats/core/repositories";
 import { UsersService, UsersServiceLive } from "@jimbostats/core/services";
-import { Effect, Layer, ManagedRuntime } from "effect";
+import { Effect, Layer } from "effect";
 import { Hono } from "hono";
+import { Env } from "../..";
+import { RunRepositoryLive } from "@jimbostats/core/repositories";
+import { DrizzleFactory } from "../../../../core/src/db";
 
-export const app = new Hono();
+export const app = new Hono<Env>();
 
-const runtime = ManagedRuntime.make(
-  Layer.provideMerge(UsersServiceLive, RunRepositoryLive),
-);
-
-app.get("/", (c) => {
-  return c.json(["Hello world"]);
+app.get("/", async (c) => {
+  return c.json({ t: "Hello world" });
 });
 
 app.get("/:id", async (c) => {
   const program = Effect.gen(function* () {
     const usersService = yield* UsersService;
 
-    const runs = yield* usersService.getRunsForUser(1);
+    const runs = yield* usersService.getRunsForUser("bing");
 
     return runs;
   }).pipe(
@@ -34,7 +32,10 @@ app.get("/:id", async (c) => {
         }
       },
     }),
+    Effect.provide(UsersServiceLive),
+    Effect.provide(RunRepositoryLive),
+    Effect.provide(DrizzleFactory(c.get("dbLayer"))),
   );
 
-  return await runtime.runPromise(program);
+  return await Effect.runPromise(program).catch((err) => console.log(err));
 });
