@@ -1,5 +1,5 @@
 import { Context, Effect, Layer, Schema } from "effect";
-import { RunRepository } from "../../repositories/index.ts";
+import { RunRepository, RunRepositoryLive } from "../../repositories/index.ts";
 import { RunSchema, type Run } from "../../schemas/runs.ts";
 import type { DatabaseError } from "../../errors/db.error.ts";
 import type { NoRunsFoundError } from "../../errors/noRunsFound.error.ts";
@@ -29,4 +29,4 @@ export const UsersServiceLive = Layer.effect(
         }),
     };
   }),
-);
+).pipe(Layer.provideMerge(RunRepositoryLive));

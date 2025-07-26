@@ -4,6 +4,7 @@ import type { D1Database } from "@cloudflare/workers-types";
 import * as D1 from "@effect/sql-d1/D1Client";
 import { SqlClient } from "@effect/sql/SqlClient";
 import type { ConfigError, Layer } from "effect";
+import { UsersController } from "./routes/users";
 
 export interface Env {
   Bindings: {
@@ -23,6 +24,6 @@ app.use(async (c, next) => {
 });
 
 app.route("/runs", Get.app);
-app.route("/users", Get.app);
+app.route("/users", UsersController.app);
 
 export default app;

@@ -18,8 +18,9 @@ export class RunRepository extends Context.Tag("RunRepository")<
       id: string,
     ) => Effect.Effect<DBRun, RunNotFoundError | DatabaseError>;
     readonly createRun: (
+      userId: string,
       run: CreateRun,
-    ) => Effect.Effect<string, DatabaseError>;
+    ) => Effect.Effect<DBRun, DatabaseError>;
     readonly findAllRunsForUser: (
       userId: string,
       limit: number,
@@ -116,7 +117,7 @@ export const RunRepositoryLive = Layer.effect(
 
           return resultRun;
         }),
-      createRun: (run: CreateRun) =>
+      createRun: (userId: string, run: CreateRun) =>
         Effect.gen(function* () {
           const dbQuery = yield* Effect.tryPromise({
             try: async () => {
@@ -124,10 +125,11 @@ export const RunRepositoryLive = Layer.effect(
                 .insert(Runs)
                 .values({
                   id: crypto.randomUUID(),
+                  userId,
                   ...run,
                   won: run.won ? 1 : 0,
                 })
-                .returning({ id: Runs.id });
+                .returning();
 
               return insertedRun;
             },
@@ -136,13 +138,13 @@ export const RunRepositoryLive = Layer.effect(
             },
           });
 
-          const resultRunId = dbQuery.at(0)?.id;
+          const resultRun = dbQuery.at(0);
 
-          if (resultRunId === undefined) {
+          if (resultRun === undefined) {
             return yield* Effect.fail(new DatabaseError());
           }
 
-          return resultRunId;
+          return resultRun;
         }),
       findAllRunsForUser: (userId: string, limit: number, offset: number) =>
         Effect.gen(function* () {

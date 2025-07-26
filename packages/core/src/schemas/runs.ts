@@ -23,7 +23,6 @@ export const RunSchema = Schema.Struct({
 
 export const CreateRunSchema = Schema.Struct({
   ...RunSchema.omit("id", "createdAt", "mostPlayedHand", "lostTo").fields,
-  userId: Schema.String,
   mostPlayedHand: Schema.String,
   lostTo: Schema.optional(Schema.String),
 });
