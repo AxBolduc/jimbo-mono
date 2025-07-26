@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "0c730f91-f8f9-419c-8914-086d54f61aa2",
+  "id": "761f1b47-8a60-4172-aaea-89a49178bc57",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "Blinds": {
@@ -167,7 +167,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "strftime('%Y-%m-%dT%H:%M:%fZ', 'now')"
+          "default": "(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))"
         },
         "bestHand": {
           "name": "bestHand",
@@ -326,7 +326,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "strftime('%Y-%m-%dT%H:%M:%fZ', 'now')"
+          "default": "(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))"
         },
         "username": {
           "name": "username",

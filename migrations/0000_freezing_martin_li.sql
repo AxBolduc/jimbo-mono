@@ -25,7 +25,7 @@ CREATE TABLE `RunJokers` (
 --> statement-breakpoint
 CREATE TABLE `Runs` (
 	`id` text PRIMARY KEY NOT NULL,
-	`createdAt` text DEFAULT strftime('%Y-%m-%dT%H:%M:%fZ', 'now') NOT NULL,
+	`createdAt` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
 	`bestHand` text DEFAULT '0' NOT NULL,
 	`cardsPlayed` integer NOT NULL,
 	`cardsDiscarded` integer NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `Runs` (
 --> statement-breakpoint
 CREATE TABLE `Users` (
 	`id` text PRIMARY KEY NOT NULL,
-	`createdAt` text DEFAULT strftime('%Y-%m-%dT%H:%M:%fZ', 'now') NOT NULL,
+	`createdAt` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
 	`username` text NOT NULL,
 	`password` text NOT NULL,
 	`apiKey` text NOT NULL

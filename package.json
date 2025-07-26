@@ -19,6 +19,7 @@
   "scripts": {
     "dev": "sst dev",
     "typecheck": "bun --filter=* typecheck",
-    "migrate:gen": "drizzle-kit generate --config ./packages/core/drizzle.config.ts"
+    "migrate:gen": "drizzle-kit generate --config ./packages/core/drizzle.config.ts",
+    "migrate:push": "drizzle-kit push --config ./packages/core/drizzle.config.ts"
   }
 }

@@ -34,7 +34,7 @@ export const Runs = sqliteTable("Runs", {
   // You can use { mode: "bigint" } if numbers are exceeding js number limitations
   id: text("id").primaryKey().notNull(),
   createdAt: text("createdAt")
-    .default(sql`strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`)
+    .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`)
     .notNull(),
   bestHand: text("bestHand").default("0").notNull(),
   cardsPlayed: integer("cardsPlayed").notNull(),
@@ -61,7 +61,7 @@ export const Users = sqliteTable(
     // You can use { mode: "bigint" } if numbers are exceeding js number limitations
     id: text("id").primaryKey().notNull(),
     createdAt: text("createdAt")
-      .default(sql`strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`)
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`)
       .notNull(),
     username: text("username").notNull(),
     password: text("password").notNull(),
