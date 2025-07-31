@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { Get } from "./routes/runs";
+import { RunsApp } from "./routes/runs";
 import type { D1Database } from "@cloudflare/workers-types";
 import * as D1 from "@effect/sql-d1/D1Client";
 import { SqlClient } from "@effect/sql/SqlClient";
@@ -23,7 +23,7 @@ app.use(async (c, next) => {
   await next();
 });
 
-app.route("/runs", Get.app);
+app.route("/runs", RunsApp);
 app.route("/users", UsersController.app);
 
 export default app;

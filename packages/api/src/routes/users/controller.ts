@@ -1,18 +1,18 @@
 import { DrizzleFactory } from "@jimbostats/core/db";
 import { RunRepositoryLive } from "@jimbostats/core/repositories";
-import { UsersService, UsersServiceLive } from "@jimbostats/core/services";
 import { Effect } from "effect";
 import { Hono } from "hono";
 import { Env } from "../..";
+import { RunsService, RunsServiceLive } from "@jimbostats/core/services";
 
 export const app = new Hono<Env>();
 
 app.get("/:id/runs", async (c) => {
   const program = Effect.gen(function* () {
-    const usersService = yield* UsersService;
+    const runsService = yield* RunsService;
 
     const userId = c.req.param("id");
-    const runs = yield* usersService.getRunsForUser(userId);
+    const runs = yield* runsService.getRunsForUser(userId);
 
     return runs;
   }).pipe(
@@ -29,7 +29,7 @@ app.get("/:id/runs", async (c) => {
         }
       },
     }),
-    Effect.provide(UsersServiceLive),
+    Effect.provide(RunsServiceLive),
     Effect.provide(RunRepositoryLive),
     Effect.provide(DrizzleFactory(c.get("dbLayer"))),
   );

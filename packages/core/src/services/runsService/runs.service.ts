@@ -10,6 +10,7 @@ import {
   RunRepository,
   RunRepositoryLive,
 } from "../../repositories/runRepository";
+import type { NoRunsFoundError } from "../../errors";
 
 export class RunsService extends Context.Tag("UsersService")<
   RunsService,
@@ -18,6 +19,9 @@ export class RunsService extends Context.Tag("UsersService")<
       apiKey: string,
       run: CreateRun,
     ) => Effect.Effect<Run, DatabaseError | UserNotFoundError>;
+    readonly getRunsForUser: (
+      userId: string,
+    ) => Effect.Effect<readonly Run[], DatabaseError | NoRunsFoundError>;
   }
 >() { }
 
@@ -34,6 +38,12 @@ export const RunsServiceLive = Layer.effect(
           const createdRun = yield* runsRepository.createRun(userId, run);
 
           return Schema.decodeUnknownSync(RunSchema)(createdRun);
+        }),
+      getRunsForUser: (userId: string) =>
+        Effect.gen(function* () {
+          const runs = yield* runsRepository.findAllRunsForUser(userId, 10, 0);
+
+          return Schema.decodeUnknownSync(Schema.Array(RunSchema))(runs);
         }),
     };
   }),

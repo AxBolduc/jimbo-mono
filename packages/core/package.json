@@ -6,7 +6,8 @@
     "./schemas": "./src/schemas/index.ts",
     "./services": "./src/services/index.ts",
     "./repositories": "./src/repositories/index.ts",
-    "./db": "./src/db/index.ts"
+    "./db": "./src/db/index.ts",
+    "./errors": "./src/errors/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
